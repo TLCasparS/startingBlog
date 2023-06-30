@@ -1,0 +1,71 @@
+{% include "header.html" %}
+
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('{{post.img_url}}')">
+	<div class="overlay"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-10 mx-auto">
+				<div class="post-heading">
+					<h1>{{post.title|safe}}</h1>
+					<h2 class="subheading">{{post.subtitle|safe}}</h2>
+					<span class="meta">Posted by
+              <a href="#">{{post.author|safe}}</a>
+              journey from {{post.start|safe}} to {{post.end|safe}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </header>
+
+  <!-- Post Content -->
+  <article>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <p>
+            {{ post['body']|safe }}
+          </p>
+           <hr>
+           <div class="clearfix">
+               <a class="btn btn-primary float-right" href="{{url_for('add_day', post_id=post.id, post_title = post.title)}}">Add Journey Days and details </a>
+          <a class="btn btn-secondary float-right" href="{{url_for('edit_post', post_id=post.id, post_title = post.title)}}">Edit Post</a>
+            <a class="btn btn-tertiary float-left" href="{{url_for('delete_post', post_id=post.id)}}">Delete Journey Page</a>
+        </div>
+          </div>
+      </div>
+
+
+
+        <div class = "row">
+
+             {% for post in all_posts %}
+
+        <div class="post-preview">
+        <a href="{{ url_for('show_post',post_title = post.title, post_id=post.id) }}">
+            <h2 class="post-title">
+              {{post.title|safe}}
+            </h2>
+
+            <h3 class="post-subtitle">
+              {{post.subtitle|safe}}
+            </h3>
+          </a>
+          <p class="post-meta">Posted by
+            <a href="{{ url_for('show_author', name = post.author) }}">{{post.author|safe}}</a>
+            Journey Day: {{post.start|safe}}</p>
+          <a href="{{ url_for('delete_post', post_id=post.id, blog = Day)}}"> DELETE</a>
+            <a class="btn btn-secondary float-right" href="{{url_for('edit_day', post_id=post.id, post_title = post.title)}}">Edit Day</a>
+        </div>
+        <hr>
+
+        {% endfor %}
+
+
+        </div>
+    </div>
+  </article>
+
+  <hr>
+{% include "footer.html" %}
